@@ -14,7 +14,6 @@ export const TransactionList = () => {
             <li key={transaction.id}>
               <p className={styles.name}>{transaction.title}</p>
               <p className={styles.amount}>${transaction.amount}</p>
-              <button className='btn'>Delete</button>
             </li>
           )
         })
