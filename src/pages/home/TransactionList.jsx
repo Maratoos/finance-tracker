@@ -4,8 +4,8 @@ import { getCollection } from '../../hooks/useCollection'
 import styles from './Home.module.css'
 
 export const TransactionList = () => {
-  const { documents } = getCollection("transactions")
   const { user } = useAuthContext()
+  const { documents } = getCollection("transactions", user.uid)
   return (
     <ul className={styles.transactions}>
       {documents.length > 0 &&
@@ -19,7 +19,7 @@ export const TransactionList = () => {
           )
         })
       }
-      {/* {documents.length === 0 && <p>Add your first transaction, {user.displayName}</p>} */}
+      {documents.length === 0 && <p>Add your first transaction, {user.displayName}!</p>}
     </ul>
 )
 }
