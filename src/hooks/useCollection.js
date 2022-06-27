@@ -1,4 +1,4 @@
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { firestore } from "../firebase/config";
 
@@ -42,25 +42,19 @@ export const useCollection = () => {
         }
     }
 
-    const deleteDocument = () => {
-        const deleteMal = async (id) => {
-            await deleteDoc(doc(db, "transactions", id))
-        }
-    }
-
     useEffect(() => {
         return () => setIsCancelled(true)
     }, [])
 
-    return { addDocument, deleteDocument, isCancelled, response }
+    return { addDocument, isCancelled, response }
 }
 
-export const getCollection = (collectionName) => {
+export const getCollection = (collectionName, userId) => {
     const [documents, setDocuments] = useState([])
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        const collectionRef = query(collection(firestore, collectionName), orderBy("amount", "desc"))
+        const collectionRef = query(collection(firestore, collectionName), where('userId', '==', userId)) //,  orderBy("amount", "desc") 
 
         const unsubscribe = onSnapshot(collectionRef, (snap) => {
             let results = []

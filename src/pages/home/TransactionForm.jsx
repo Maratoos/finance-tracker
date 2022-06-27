@@ -25,11 +25,11 @@ const TransactionForm = () => {
         <form onSubmit={handleSubmit}>
             <label>
                 <span>Transaction name:</span>
-                <input name="title" type="text" required/>
+                <input name="title" type="text" required maxLength={100}/>
             </label>
             <label>
                 <span>Amount ($):</span>
-                <input name="amount" type="number" required/>
+                <input name="amount" type="number" required maxLength={100}/>
             </label>
             {!response.isPending && <button>Add a transaction</button>}
             {response.isPending && <button disabled>Loading...</button>}
